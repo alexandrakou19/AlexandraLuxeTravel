@@ -12,7 +12,6 @@ function resend() {
 
 export const mailConfig = () => ({
   from: process.env.EMAIL_FROM ?? "Alexandra Luxe Travel <hello@alexandraluxetravel.com>",
-  notifyTo: process.env.INQUIRY_NOTIFY_EMAIL ?? "alexandrajohnson@travelmation.net",
   siteUrl: process.env.NEXT_PUBLIC_SITE_URL ?? "https://alexandraluxetravel.com",
 })
 
@@ -26,9 +25,9 @@ export async function sendEmail(input: {
   if (!api) {
     // Local development without a key: log instead of failing the visitor.
     console.warn(`[mail] RESEND_API_KEY missing, skipped "${input.subject}" to ${input.to}`)
-    return { id: "skipped" }
+    return { id: null, skipped: true as const }
   }
   const { data, error } = await api.emails.send({ from: mailConfig().from, ...input })
   if (error) throw new Error(`${error.name}: ${error.message}`)
-  return { id: data?.id ?? "" }
+  return { id: data?.id ?? null, skipped: false as const }
 }

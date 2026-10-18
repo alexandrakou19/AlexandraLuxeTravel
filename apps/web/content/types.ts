@@ -101,6 +101,8 @@ export type SiteSettings = {
   credentials: Credential[]
   testimonialsEnabled: boolean
   replyTimePromise: string
+  /** Inbox that receives inquiries (not shown on the site). */
+  notificationEmail: string
   nav: NavItem[]
   /** Header CTAs are data-driven so a future "Book" button can be added. */
   headerCta: NavItem
@@ -114,7 +116,7 @@ export type HomePage = {
   meet: { portrait: Media; secondary: Media; heading: string; body: string[] }
   stats: { value: number; suffix: string; label: string }[]
   signature: { images: [Media, Media]; eyebrow: string; heading: string; body: string[] }
-  journeys: { heading: string; intro: string }
+  journeys: { heading: string; intro: string; items: { title: string; line: string; href: string; image: Media }[] }
   amenities: string[]
   planningFeeLine: string
   process: { heading: string; intro: string; steps: ProcessStep[] }
@@ -128,7 +130,7 @@ export type AboutPage = {
   headline: string
   intro: string
   story: string[]
-  family: { heading: string; body: string[]; image: Media }
+  family: { heading: string; body: string[]; image: Media; image2?: Media }
   philosophy: { title: string; body: string }[]
   gallery: Media[]
 }
@@ -139,6 +141,10 @@ export type ServicesPage = {
   planningFee: string
   processIntro: string
 }
+
+export type SeoMeta = { title?: string; description?: string; image?: Media }
+
+export type ContactPage = { intro: string; panelHeading: string; panelBody: string }
 
 export type InquiryPage = {
   intro: string

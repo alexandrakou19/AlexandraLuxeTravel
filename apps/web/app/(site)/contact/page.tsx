@@ -7,7 +7,7 @@ import { Reveal } from "@/components/motion/reveal"
 import { InquireLink } from "@/components/site/inquire-link"
 import { SocialLinks } from "@/components/site/social-links"
 import { photo } from "@/content/media"
-import { getSiteSettings } from "@/lib/content"
+import { getContactPage, getSiteSettings } from "@/lib/content"
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactPage() {
-  const site = await getSiteSettings()
+  const [site, page] = await Promise.all([getSiteSettings(), getContactPage()])
   return (
     <>
       <PageHero
@@ -27,7 +27,9 @@ export default async function ContactPage() {
           </>
         }
       >
-        <p>Questions, ideas, or just want to say hello? I’d love to hear from you, and I reply {site.replyTimePromise}.</p>
+        <p>
+          {page.intro} I reply {site.replyTimePromise}.
+        </p>
       </PageHero>
 
       <section className="container-editorial pb-24 lg:pb-32">
@@ -35,10 +37,8 @@ export default async function ContactPage() {
         <Reveal className="grid overflow-hidden bg-band text-band-foreground md:grid-cols-[1fr_1.3fr]">
           <Photo media={photo("karnak-red-dress")} sizes="(min-width: 768px) 40vw, 100vw" className="aspect-[16/10] md:aspect-auto md:min-h-[22rem]" />
           <div className="flex flex-col justify-center px-6 py-10 md:px-12 md:py-14">
-            <h2 className="display-2">Planning a trip?</h2>
-            <p className="mt-4 max-w-[42ch] text-band-soft">
-              Use the travel inquiry form. It takes about three minutes and gives me everything I need to prepare a first draft for you.
-            </p>
+            <h2 className="display-2">{page.panelHeading}</h2>
+            <p className="mt-4 max-w-[42ch] text-band-soft">{page.panelBody}</p>
             <div className="mt-8">
               <InquireLink location="contact-panel" variant="inverse">
                 Start your travel inquiry

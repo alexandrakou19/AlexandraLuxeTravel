@@ -44,3 +44,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Payload local uploads (development only; production uses Vercel Blob)
+apps/web/media/

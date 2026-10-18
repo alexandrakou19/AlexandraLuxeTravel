@@ -17,17 +17,16 @@ export async function generateStaticParams() {
   return destinations.map((d) => ({ slug: d.slug }))
 }
 
-export const dynamicParams = false
 
 export async function generateMetadata(props: PageProps<"/destinations/[slug]">): Promise<Metadata> {
   const { slug } = await props.params
   const d = await getDestination(slug)
   if (!d) return {}
   return {
-    title: d.seo?.title ?? `${d.title} Travel`,
-    description: d.seo?.description ?? `${d.teaser} ${d.intro[0]}`.slice(0, 158),
+    title: d.seo.title ? { absolute: d.seo.title } : `${d.title} Travel`,
+    description: d.seo.description ?? `${d.teaser} ${d.intro[0] ?? ""}`.slice(0, 158),
     alternates: { canonical: `/destinations/${d.slug}` },
-    openGraph: { images: [{ url: d.cover.src, width: d.cover.width, height: d.cover.height, alt: d.cover.alt }] },
+    openGraph: { images: [{ url: (d.seo.image ?? d.cover).src, alt: (d.seo.image ?? d.cover).alt }] },
   }
 }
 

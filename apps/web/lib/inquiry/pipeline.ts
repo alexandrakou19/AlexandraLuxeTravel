@@ -1,8 +1,10 @@
-// Inquiry pipeline: validate -> spam check -> notify -> auto-reply -> CRM sync.
+// Inquiry pipeline: validate -> spam check -> save to CMS -> notify -> auto-reply -> CRM sync.
 // Each delivery step is independent: one failure never blocks the others,
-// and the visitor always reaches the thank-you page once validation passes.
+// and the visitor reaches the thank-you page once the lead is saved or emailed.
 // A future booking or deposit flow can reuse these steps.
 
+import config from "@payload-config"
+import { getPayload } from "payload"
 import { createElement } from "react"
 
 import { ContactAutoReplyEmail, ContactNotificationEmail } from "@/emails/contact-emails"
@@ -14,7 +16,7 @@ import { syncToCrm } from "./crm-sync"
 import { mailConfig, sendEmail } from "./mailer"
 import { contactSchema, inquirySchema, tripTypeLabel, type ContactValues, type InquiryValues } from "./schema"
 import { checkSpam } from "./spam"
-import { destinationText } from "./summary"
+import { destinationText, travelDates } from "./summary"
 
 export type SubmitResult =
   | { ok: true }
@@ -43,6 +45,36 @@ function logFailures(kind: string, results: PromiseSettledResult<unknown>[], lab
   })
 }
 
+type Delivery = PromiseSettledResult<unknown>
+
+function statusOf(r: Delivery | undefined) {
+  if (!r) return "Not sent"
+  if (r.status === "rejected") return `Failed: ${String((r.reason as Error)?.message ?? r.reason).slice(0, 200)}`
+  return (r.value as { skipped?: boolean })?.skipped ? "Not sent (email not configured)" : "Sent"
+}
+
+/** Saves the lead in the CMS (the source of truth). Returns the record id, or null if saving failed. */
+async function saveInquiry(data: Record<string, unknown>) {
+  try {
+    const payload = await getPayload({ config })
+    const doc = await payload.create({ collection: "inquiries", data: data as never, depth: 0 })
+    return doc.id
+  } catch (err) {
+    console.error("[inquiry] saving to the CMS failed:", err)
+    return null
+  }
+}
+
+async function recordDeliveries(id: number | string | null, data: Record<string, unknown>) {
+  if (id == null) return
+  try {
+    const payload = await getPayload({ config })
+    await payload.update({ collection: "inquiries", id, data: data as never, depth: 0 })
+  } catch (err) {
+    console.error("[inquiry] recording delivery status failed:", err)
+  }
+}
+
 export async function processInquiry(raw: unknown, ip: string): Promise<SubmitResult> {
   const parsed = inquirySchema.safeParse(raw)
   if (!parsed.success) {
@@ -62,15 +94,47 @@ export async function processInquiry(raw: unknown, ip: string): Promise<SubmitRe
   }
 
   const settings = await getSiteSettings()
-  const { notifyTo, siteUrl } = mailConfig()
+  const { siteUrl } = mailConfig()
+  const notifyTo = settings.notificationEmail
   const instagram = settings.social.find((s) => s.network === "instagram")?.url
+  const children = Number(values.children) || 0
 
+  // 1. Save first: even if every email fails, the lead is in the dashboard.
+  const id = await saveInquiry({
+    type: "trip",
+    status: "new",
+    name: `${values.firstName} ${values.lastName}`,
+    firstName: values.firstName,
+    lastName: values.lastName,
+    email: values.email,
+    phone: values.phone,
+    contactMethod: values.contactMethod,
+    basedIn: values.basedIn,
+    tripType: values.tripType,
+    destination: destinationText(values),
+    travelDates: travelDates(values),
+    nights: values.nights,
+    adults: values.adults,
+    children: String(children),
+    childAges: values.childAges.join(", "),
+    occasion: values.occasion,
+    budget: values.budget,
+    accommodation: values.accommodation.join(", "),
+    pace: values.pace,
+    interests: values.interests.join(", "),
+    heardFrom: values.heardFrom,
+    notes: values.notes,
+    crm: { status: "pending" },
+  })
+  const adminUrl = id != null ? `${siteUrl}/admin/collections/inquiries/${id}` : undefined
+
+  // 2. Notify, thank and sync independently; one failure never blocks the others.
   const results = await Promise.allSettled([
     sendEmail({
       to: notifyTo,
       replyTo: values.email,
       subject: `New inquiry: ${values.firstName} ${values.lastName}, ${tripTypeLabel(values.tripType)}, ${destinationText(values)}`,
-      react: createElement(InquiryNotificationEmail, { values, submittedAt: submittedAtLabel(), siteUrl }),
+      react: createElement(InquiryNotificationEmail, { values, submittedAt: submittedAtLabel(), siteUrl, adminUrl }),
     }),
     sendEmail({
       to: values.email,
@@ -87,8 +151,17 @@ export async function processInquiry(raw: unknown, ip: string): Promise<SubmitRe
   ])
   logFailures("inquiry", results, ["notification", "auto-reply", "crm-sync"])
 
-  // Without a database, the notification email is the lead's only record.
-  if (results[0].status === "rejected") {
+  const crm = results[2]
+  await recordDeliveries(id, {
+    emails: { notification: statusOf(results[0]), autoReply: statusOf(results[1]) },
+    crm:
+      crm.status === "rejected"
+        ? { status: "failed", error: String((crm.reason as Error)?.message ?? crm.reason).slice(0, 500) }
+        : { status: (crm.value as { status: string }).status, error: null },
+  })
+
+  // The visitor always reaches the thank-you page once the inquiry is saved (or at least emailed).
+  if (id == null && results[0].status === "rejected") {
     return {
       ok: false,
       message: `Something went wrong sending your inquiry. Please try again, or email ${settings.email} directly.`,
@@ -112,7 +185,18 @@ export async function processContact(raw: unknown, ip: string): Promise<SubmitRe
   }
 
   const settings = await getSiteSettings()
-  const { notifyTo, siteUrl } = mailConfig()
+  const { siteUrl } = mailConfig()
+  const notifyTo = settings.notificationEmail
+
+  // Saved like trip inquiries, but never sent to TravelJoy.
+  const id = await saveInquiry({
+    type: "contact",
+    status: "new",
+    name: values.name,
+    email: values.email,
+    message: values.message,
+    crm: { status: "na" },
+  })
 
   const results = await Promise.allSettled([
     sendEmail({
@@ -129,8 +213,9 @@ export async function processContact(raw: unknown, ip: string): Promise<SubmitRe
     }),
   ])
   logFailures("contact", results, ["notification", "auto-reply"])
+  await recordDeliveries(id, { emails: { notification: statusOf(results[0]), autoReply: statusOf(results[1]) } })
 
-  if (results[0].status === "rejected") {
+  if (id == null && results[0].status === "rejected") {
     return { ok: false, message: `Something went wrong. Please try again, or email ${settings.email} directly.` }
   }
   return { ok: true }

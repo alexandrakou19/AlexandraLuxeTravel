@@ -8,11 +8,15 @@ import { Reveal } from "@/components/motion/reveal"
 import { photo } from "@/content/media"
 import { getAboutPage, getHomePage, getSiteSettings } from "@/lib/content"
 
-export const metadata: Metadata = {
-  title: "About Alexandra",
-  description:
-    "Meet Alexandra: wife, mother of three and founder of Alexandra Luxe Travel. 30+ countries, 40+ U.S. states and 400 destinations explored, and a belief that the best memories are made together.",
-  alternates: { canonical: "/about" },
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getAboutPage()
+  return {
+    title: seo.title ? { absolute: seo.title } : "About Alexandra",
+    description:
+      seo.description ??
+      "Meet Alexandra: wife, mother of three and founder of Alexandra Luxe Travel. 30+ countries, 40+ U.S. states and 400 destinations explored, and a belief that the best memories are made together.",
+    alternates: { canonical: "/about" },
+  }
 }
 
 export default async function AboutPage() {
@@ -89,11 +93,13 @@ export default async function AboutPage() {
               <Photo media={about.family.image} sizes="(min-width: 1024px) 46vw, 100vw" className="aspect-[4/5]" />
             </Reveal>
             <Caption media={about.family.image} />
-            <Drift amount={16} className="absolute -right-2 bottom-16 hidden w-[38%] md:block lg:-right-12">
-              <Reveal variant="image" delay={0.2} className="border-8 border-background">
-                <Photo media={photo("resort-pool-daughter")} sizes="20vw" className="aspect-[3/4]" />
-              </Reveal>
-            </Drift>
+            {about.family.image2 ? (
+              <Drift amount={16} className="absolute -right-2 bottom-16 hidden w-[38%] md:block lg:-right-12">
+                <Reveal variant="image" delay={0.2} className="border-8 border-background">
+                  <Photo media={about.family.image2} sizes="20vw" className="aspect-[3/4]" />
+                </Reveal>
+              </Drift>
+            ) : null}
           </figure>
           <div className="lg:col-span-5 lg:col-start-8">
             <Reveal as="h2" variant="lines" id="family-heading" className="display-2">

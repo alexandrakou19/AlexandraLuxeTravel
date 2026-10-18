@@ -37,6 +37,7 @@ export const siteSettings: SiteSettings = {
   testimonialsEnabled: true,
   // REVIEW(Saad): reply-time promise to confirm with the client (brief section 11).
   replyTimePromise: "within one business day",
+  notificationEmail: "alexandrajohnson@travelmation.net",
   nav: [
     { label: "About", href: "/about" },
     { label: "Services", href: "/services" },

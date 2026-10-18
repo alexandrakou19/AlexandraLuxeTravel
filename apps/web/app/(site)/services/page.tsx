@@ -10,16 +10,19 @@ import { Process } from "@/components/home/process"
 import { Drift } from "@/components/motion/parallax"
 import { Reveal } from "@/components/motion/reveal"
 import { InquireLink } from "@/components/site/inquire-link"
-import { amenities, processSteps } from "@/content/pages"
 import { photo } from "@/content/media"
 import { getServices, getServicesPage } from "@/lib/content"
 import { cn } from "@workspace/ui/lib/utils"
 
-export const metadata: Metadata = {
-  title: "Travel Planning Services",
-  description:
-    "Luxury family travel, bespoke international journeys, bucket-list adventures, honeymoons, destination weddings and group travel, personally planned by Alexandra with no additional planning fee.",
-  alternates: { canonical: "/services" },
+export async function generateMetadata(): Promise<Metadata> {
+  const { seo } = await getServicesPage()
+  return {
+    title: seo.title ? { absolute: seo.title } : "Travel Planning Services",
+    description:
+      seo.description ??
+      "Luxury family travel, bespoke international journeys, bucket-list adventures, honeymoons, destination weddings and group travel, personally planned by Alexandra with no additional planning fee.",
+    alternates: { canonical: "/services" },
+  }
 }
 
 export default async function ServicesPage() {
@@ -110,8 +113,8 @@ export default async function ServicesPage() {
         })}
       </div>
 
-      <Amenities amenities={amenities} planningFeeLine={page.planningFee} />
-      <Process heading="How planning with me works" intro={page.processIntro} steps={processSteps} />
+      <Amenities amenities={page.amenities} planningFeeLine={page.planningFee} />
+      <Process heading="How planning with me works" intro={page.processIntro} steps={page.processSteps} />
 
       <section className="container-editorial pb-20">
         <p className="text-ink-soft">

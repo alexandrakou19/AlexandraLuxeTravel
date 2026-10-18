@@ -27,4 +27,8 @@ Marketing site for Alexandra Luxe Travel, a new US-based luxury travel agency fo
 | Contact, Privacy | Read | Visitor finds what they need |
 
 ## Platform
-Next.js 16 (App Router) + Tailwind v4 + shadcn (base-ui) in a bun/turbo monorepo. Content is a typed local layer shaped like the future Payload CMS collections (`lib/content.ts` is the only seam). Email via Resend. Hosting: Vercel.
+Next.js 16 (App Router) + Tailwind v4 + shadcn (base-ui) in a bun/turbo monorepo, with Payload CMS 3 at `/admin` (Postgres on Neon, uploads on Vercel Blob). `lib/content.ts` is the only seam between pages and the CMS. Inquiries are saved in the CMS first, then emailed via Resend and synced to TravelJoy via Zapier. Hosting: Vercel.
+
+- `cms/`: collections, globals, access rules, revalidation hooks, migrations
+- `content/`: launch content used by `bun run seed` (and the view-model types)
+- Schema changes: edit `cms/`, then `bun run payload migrate:create <name>`; production runs pending migrations on start.

@@ -68,6 +68,7 @@ export const homePage: HomePage = {
     ],
   },
   journeys: {
+    items: [], // seeded separately (they link to services in the CMS)
     heading: "Journeys for every traveler",
     intro:
       "Families are my signature, but every trip receives the same care. I specialize in luxury experiences and work with many travel styles and budgets.",
