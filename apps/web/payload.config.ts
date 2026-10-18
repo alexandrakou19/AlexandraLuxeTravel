@@ -88,7 +88,8 @@ export default buildConfig({
     // Uploads go to Vercel Blob in production (Vercel's filesystem is read-only).
     vercelBlobStorage({
       enabled: Boolean(process.env.BLOB_READ_WRITE_TOKEN),
-      collections: { media: true },
+      // Photos are public, so serve them straight from Blob instead of proxying through /api/media.
+      collections: { media: { disablePayloadAccessControl: true } },
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],

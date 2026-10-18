@@ -265,6 +265,7 @@ export interface Media {
    */
   credit?: string | null;
   blurDataURL?: string | null;
+  _objectKey?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -593,6 +594,7 @@ export interface MediaSelect<T extends boolean = true> {
   isStock?: T;
   credit?: T;
   blurDataURL?: T;
+  _objectKey?: T;
   updatedAt?: T;
   createdAt?: T;
   url?: T;
