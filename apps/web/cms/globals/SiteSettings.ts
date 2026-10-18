@@ -39,7 +39,7 @@ export const SiteSettings: GlobalConfig = {
                         { label: "TikTok", value: "tiktok" },
                       ],
                     },
-                    { name: "handle", type: "text", admin: { description: "Optional, e.g. @alexandraluxetravel19" } },
+                    { name: "handle", type: "text", admin: { description: "Optional, e.g. @alexandraluxetravel" } },
                   ],
                 },
                 { name: "url", label: "Link", type: "text", required: true },

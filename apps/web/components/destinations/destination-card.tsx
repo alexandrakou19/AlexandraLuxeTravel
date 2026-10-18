@@ -1,8 +1,10 @@
 import { ArrowRight } from "@phosphor-icons/react/ssr"
 import Link from "next/link"
+import { ViewTransition } from "react"
 
 import { Photo } from "@/components/editorial/photo"
 import type { Destination } from "@/content/types"
+import { destinationPhotoName } from "@/lib/transitions"
 import { cn } from "@workspace/ui/lib/utils"
 
 export function DestinationCard({
@@ -10,18 +12,30 @@ export function DestinationCard({
   aspect = "aspect-[4/5]",
   sizes = "(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw",
   headingLevel: H = "h2",
+  morph = true,
 }: {
   destination: Destination
   aspect?: string
   sizes?: string
   headingLevel?: "h2" | "h3"
+  /** Grow this card's photo into the destination hero. Off where the hero is already on screen. */
+  morph?: boolean
 }) {
+  const frame = (
+    <div className={cn("frame-zoom relative overflow-hidden", aspect)}>
+      <Photo media={d.cover} sizes={sizes} className="absolute inset-0" />
+      <div aria-hidden className="absolute inset-0 bg-espresso/0 transition-colors duration-700 group-hover:bg-espresso/10" />
+    </div>
+  )
   return (
     <Link href={`/destinations/${d.slug}`} className="group block">
-      <div className={cn("frame-zoom relative overflow-hidden", aspect)}>
-        <Photo media={d.cover} sizes={sizes} className="absolute inset-0" />
-        <div aria-hidden className="absolute inset-0 bg-espresso/0 transition-colors duration-700 group-hover:bg-espresso/10" />
-      </div>
+      {morph ? (
+        <ViewTransition name={destinationPhotoName(d.slug)} share="morph" enter="page-in" exit="page-out" default="none">
+          {frame}
+        </ViewTransition>
+      ) : (
+        frame
+      )}
       <div className="mt-5 flex items-start justify-between gap-4">
         <div>
           <p className="eyebrow">{d.region}</p>

@@ -7,6 +7,7 @@ import { absoluteUrl } from "@/lib/utils"
 
 import { JsonLd } from "./json-ld"
 import { LivePreview } from "./live-preview"
+import { RouteProgress } from "./route-progress"
 import { SiteFooter } from "./site-footer"
 import { SiteHeader } from "./site-header"
 
@@ -21,6 +22,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
   }
   return (
     <SmoothScroll>
+      <RouteProgress />
       {preview ? <LivePreview /> : null}
       <SiteHeader nav={site.nav} cta={site.headerCta} social={site.social} email={site.email} />
       <main id="main" tabIndex={-1} className="outline-none">

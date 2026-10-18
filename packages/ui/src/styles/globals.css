@@ -294,17 +294,6 @@ html.lenis body {
     transform: scale(1.045);
   }
 
-  /* The client's logo is espresso lettering; on dark surfaces we render it as an ivory silhouette. */
-  .logo-ivory {
-    background-color: var(--band-foreground);
-    -webkit-mask-repeat: no-repeat;
-    mask-repeat: no-repeat;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-    -webkit-mask-position: left center;
-    mask-position: left center;
-  }
-
   .grain::after {
     content: "";
     position: absolute;
@@ -313,6 +302,203 @@ html.lenis body {
     opacity: 0.05;
     background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
     mix-blend-mode: multiply;
+  }
+}
+
+/* ---------- Route changes ----------
+   A navigation reads like turning a page in her journal: a champagne line is drawn across the
+   top while the next page loads; the old page lifts away, the new one is revealed down the
+   page as if ink were spreading, and a tapped destination photo grows into its hero. */
+
+@property --route-p {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+@property --route-q {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.route-progress {
+  --route-nib: color-mix(in oklab, var(--accent-line), var(--foreground) 40%);
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  height: 2px;
+  pointer-events: none;
+  view-transition-name: route-progress;
+  background: linear-gradient(90deg, color-mix(in oklab, var(--accent-line) 0%, transparent), var(--accent-line) 24%);
+  clip-path: inset(0 calc(100% - var(--route-p) * 1%) 0 calc(var(--route-q) * 1%));
+  opacity: 0;
+}
+/* A slow light travelling along the drawn line while the visitor waits. */
+.route-progress::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0 40%, color-mix(in oklab, var(--accent-line), white 55%) 50%, transparent 60% 100%);
+  background-size: 220% 100%;
+  opacity: 0;
+}
+.route-progress__nib {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 7rem;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--route-nib));
+  transform: translateX(calc(var(--route-p) * 1vw - 100%));
+}
+
+.route-progress[data-phase="loading"] {
+  --route-p: 88;
+  opacity: 1;
+  transition:
+    --route-p 9s cubic-bezier(0.08, 0.75, 0.2, 1),
+    opacity 0.25s ease;
+}
+.route-progress[data-phase="loading"]::after {
+  opacity: 1;
+  animation: route-shimmer 1.8s cubic-bezier(0.45, 0, 0.55, 1) 0.6s infinite;
+  transition: opacity 0.6s ease 0.6s;
+}
+.route-progress[data-phase="done"] {
+  --route-p: 100;
+  --route-q: 100;
+  opacity: 1;
+  transition:
+    --route-p 0.28s cubic-bezier(0.16, 1, 0.3, 1),
+    --route-q 0.55s cubic-bezier(0.7, 0, 0.84, 0) 0.24s;
+}
+.route-progress[data-phase="done"] .route-progress__nib {
+  opacity: 0;
+  transition: opacity 0.3s ease 0.2s;
+}
+@keyframes route-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -20% 0;
+  }
+}
+
+/* View transitions. Clicks pass through to the live page; the header and line never move. */
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+}
+::view-transition-group(site-header),
+::view-transition-group(route-progress) {
+  z-index: 100;
+  animation: none;
+}
+::view-transition-old(site-header),
+::view-transition-old(route-progress) {
+  display: none;
+}
+::view-transition-new(site-header),
+::view-transition-new(route-progress) {
+  animation: none;
+}
+
+/* The old page lifts and softens away, quickly, so it never competes with the new one. */
+::view-transition-old(.page-out) {
+  animation: page-lift 0.22s cubic-bezier(0.4, 0, 1, 1) both;
+}
+/* The new page is revealed from the top through a feathered edge. */
+::view-transition-new(.page-in) {
+  animation:
+    page-ink 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both,
+    page-settle 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.16s both;
+  mask-image: linear-gradient(#000 0 46%, transparent 64%);
+  mask-size: 100% 300%;
+  mask-repeat: no-repeat;
+}
+/* A destination photo travels from its card into the hero, softening mid-flight. It flies
+   between the old page (below) and the new one (above), so the new title lands on top of it. */
+::view-transition-group(.page-out) {
+  z-index: 1;
+}
+::view-transition-group(.morph) {
+  z-index: 2;
+  animation-duration: 0.7s;
+  animation-timing-function: cubic-bezier(0.7, 0, 0.2, 1);
+}
+::view-transition-group(.page-in) {
+  z-index: 3;
+}
+::view-transition-image-pair(.morph) {
+  animation: morph-soften 0.7s cubic-bezier(0.7, 0, 0.2, 1) both;
+}
+::view-transition-old(.morph),
+::view-transition-new(.morph) {
+  /* Card and hero crop the photo differently: keep it filling the frame while it travels. */
+  height: 100%;
+  object-fit: cover;
+}
+/* While a transition runs, hero backdrops are see-through so the travelling photo shows. */
+:root:active-view-transition [data-hero-overlay] {
+  background-color: transparent;
+}
+
+@keyframes page-lift {
+  to {
+    opacity: 0;
+    translate: 0 -1.25rem;
+    filter: blur(4px);
+  }
+}
+@keyframes page-ink {
+  from {
+    mask-position: 0 100%;
+  }
+  to {
+    mask-position: 0 0;
+  }
+}
+@keyframes page-settle {
+  from {
+    translate: 0 1.75rem;
+  }
+}
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes morph-soften {
+  40% {
+    filter: blur(3px) saturate(0.9);
+  }
+}
+
+/* Browsers without View Transitions: the next page fades in (app/(site)/template.tsx). */
+.page-enter {
+  animation: fade-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Reduced motion keeps the crossfades and the progress line, but nothing travels. */
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(.page-out),
+  ::view-transition-new(.page-in) {
+    animation: fade-in 0.2s ease both;
+    mask-image: none;
+  }
+  ::view-transition-old(.page-out) {
+    animation-direction: reverse;
+  }
+  ::view-transition-group(.morph),
+  ::view-transition-image-pair(.morph) {
+    animation-duration: 0s;
+  }
+  .route-progress[data-phase="loading"]::after {
+    animation: none;
   }
 }
 

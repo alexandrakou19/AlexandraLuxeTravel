@@ -900,7 +900,7 @@ export interface SiteSetting {
     | {
         network: 'instagram' | 'facebook' | 'pinterest' | 'tiktok';
         /**
-         * Optional, e.g. @alexandraluxetravel19
+         * Optional, e.g. @alexandraluxetravel
          */
         handle?: string | null;
         url: string;

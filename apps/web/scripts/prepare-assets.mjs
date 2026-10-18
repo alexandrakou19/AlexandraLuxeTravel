@@ -19,7 +19,9 @@ const out = path.join(appRoot, "public/images")
 
 /** Her own photography. Keys become file names and media ids. */
 const photos = {
-  "karnak-red-dress": path.join(pics, "IMG_5614.jpg"),
+  // Real-ESRGAN (realesrgan-x4plus) 4x upscale of IMG_5614.jpg: the client's file is a small,
+  // compressed export, and this is the full-screen hero.
+  "karnak-red-dress": path.join(pics, "IMG_5614-enhanced.jpg"),
   "london-portrait": path.join(pics, "IMG_5607.jpg"),
   "paris-family-seine": path.join(pics, "IMG_5615.jpg"),
   "paris-family-eiffel": path.join(pics, "IMG_5608.JPG"),
@@ -42,6 +44,7 @@ const stock = {
 
 const brand = {
   "logo-full": path.join(clientDir, "Logos/39C0F9F3-5EDE-4C42-9A9B-D81FF2FA6598.PNG"),
+  "logo-light": path.join(clientDir, "Logos/Alexandra Luxe Travel - Light.png"),
   "logo-monogram": path.join(clientDir, "Logos/CA565AE1-0FA8-4EAD-AB14-72642B24EE0A.PNG"),
   "badge-sandals-elite": path.join(clientDir, "elite-advisor-blue.png"),
   "badge-travelmation-luxury": path.join(clientDir, "Luxury Badge.png"),
@@ -54,11 +57,20 @@ async function blurOf(pipeline) {
   return `data:image/jpeg;base64,${buf.toString("base64")}`
 }
 
+/**
+ * Full-screen photos from AI-upscaled masters: exported larger, and with a high-quality encode so
+ * another round of compression doesn't undo the recovered detail.
+ */
+const enhance = new Set(["karnak-red-dress"])
+
 async function processPhoto(id, input) {
   const base = sharp(input).rotate() // honor EXIF orientation, metadata is dropped on output
-  const resized = base.resize(2400, 2400, { fit: "inside", withoutEnlargement: true })
+  const resized = enhance.has(id)
+    ? base.resize({ width: 2640, kernel: "lanczos3" })
+    : base.resize(2400, 2400, { fit: "inside", withoutEnlargement: true })
   const file = path.join(out, "photos", `${id}.jpg`)
-  const info = await resized.clone().jpeg({ quality: 82, mozjpeg: true }).toFile(file)
+  const encode = enhance.has(id) ? { quality: 92, mozjpeg: true, chromaSubsampling: "4:4:4" } : { quality: 82, mozjpeg: true }
+  const info = await resized.clone().jpeg(encode).toFile(file)
   return { id, src: `/images/photos/${id}.jpg`, width: info.width, height: info.height, blur: await blurOf(resized) }
 }
 
@@ -91,9 +103,6 @@ async function main() {
 
   // Email clients need a small, fixed-size logo.
   await sharp(path.join(out, "brand/logo-full.png")).resize({ width: 480 }).png({ compressionLevel: 9 }).toFile(path.join(out, "brand/logo-email.png"))
-
-  // Small mask for the ivory logo silhouette (CSS mask-image bypasses next/image).
-  await sharp(path.join(out, "brand/logo-full.png")).resize({ width: 520 }).webp({ quality: 80, alphaQuality: 90 }).toFile(path.join(out, "brand/logo-mask.webp"))
 
   // Favicon / app icon source: monogram on ivory, square.
   await sharp({ create: { width: 512, height: 512, channels: 4, background: "#F7F3EE" } })

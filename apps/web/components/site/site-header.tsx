@@ -74,6 +74,7 @@ export function SiteHeader({
         Skip to content
       </a>
       <header
+        style={{ viewTransitionName: "site-header" }}
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,color,border-color,height] duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]",
           "border-b",

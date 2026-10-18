@@ -39,7 +39,9 @@ export function Hero({ hero }: { hero: HomePage["hero"] }) {
         <Photo
           media={hero.image}
           priority
-          sizes="100vw"
+          quality={90}
+          // On tall phone screens the portrait photo fills the height, so it renders wider than the viewport.
+          sizes="(max-aspect-ratio: 2/3) 68vh, 100vw"
           className="hero-settle absolute inset-0 bg-espresso"
         />
         <div

@@ -31,8 +31,10 @@ One authored language: things rise out of masks with an exponential ease-out (`e
 - Lenis smooth scroll on the GSAP ticker (off for reduced motion).
 - `Reveal` lines / image curtain / stagger / fade; `Drift` (≤ 8–18% scrub); `Magnetic` for Inquire CTAs; `CountUp` for her real stats.
 - Signature moments: hero mask-line headline and photo settle; pinned horizontal destination pan (≥1024px); self-drawing process hairline; amenities marquee; cursor-following journey previews.
+- Route changes (View Transitions, `app/(site)/template.tsx` + globals.css "Route changes"): the old page lifts and softens away (220ms), the new one is revealed down the page through a feathered mask (850ms expo-out); the header and progress line stay anchored. A tapped destination card's photo grows into its hero (`lib/transitions.ts`). Browsers without View Transitions get a fade.
+- Route progress: a 2px champagne line drawn across the top with a brighter nib and a slow shimmer, shown only for navigations slower than 120ms; it completes, then sweeps out to the right.
 - Above-the-fold text animates with CSS only (`.rise-in`, `.mask-line`) so it never waits on JS. Everything is static under `prefers-reduced-motion`.
 - `motion` (Framer) is used only in the destination filter and inquiry form steps, never in the same tree as GSAP.
 
 ## Components
-`InquireLink` (all Inquire/Start planning CTAs; tracked + magnetic), `Logo` (ivory silhouette on dark surfaces until a reversed file exists), `Photo`/`Caption`, `PageHero`, form `Field`/`TextInput`/`Select`/`CheckboxRow`/`ChoiceChips` (native controls, 44px+ targets, label above, error below with role=alert).
+`InquireLink` (all Inquire/Start planning CTAs; tracked + magnetic), `Logo` (her original on light surfaces, her reversed ivory logo on dark ones), `Photo`/`Caption`, `PageHero`, form `Field`/`TextInput`/`Select`/`CheckboxRow`/`ChoiceChips` (native controls, 44px+ targets, label above, error below with role=alert).

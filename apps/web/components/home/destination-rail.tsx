@@ -2,12 +2,13 @@
 
 import { ArrowRight } from "@phosphor-icons/react"
 import Link from "next/link"
-import { useRef } from "react"
+import { useRef, ViewTransition } from "react"
 
 import { Photo } from "@/components/editorial/photo"
 import { gsap, prefersReducedMotion, useGSAP } from "@/components/motion/gsap"
 import { Reveal } from "@/components/motion/reveal"
 import type { Destination } from "@/content/types"
+import { destinationPhotoName } from "@/lib/transitions"
 
 /**
  * Featured destinations. On large screens the section pins and vertical scroll
@@ -86,14 +87,16 @@ export function DestinationRail({
         {destinations.map((d) => (
           <article key={d.slug} className="w-[78vw] max-w-[26rem] shrink-0 snap-start sm:w-[20rem] lg:w-[24rem] xl:w-[27rem]">
             <Link href={`/destinations/${d.slug}`} className="group block">
-              <div className="frame-zoom relative aspect-[4/5] overflow-hidden">
-                <div data-card-media className="absolute -inset-x-[8%] inset-y-0">
-                  <Photo media={d.cover} sizes="(min-width: 1024px) 30vw, 78vw" className="absolute inset-0" />
+              <ViewTransition name={destinationPhotoName(d.slug)} share="morph" enter="page-in" exit="page-out" default="none">
+                <div className="frame-zoom relative aspect-[4/5] overflow-hidden">
+                  <div data-card-media className="absolute -inset-x-[8%] inset-y-0">
+                    <Photo media={d.cover} sizes="(min-width: 1024px) 30vw, 78vw" className="absolute inset-0" />
+                  </div>
+                  <span className="absolute top-4 left-4 bg-background/90 px-2.5 py-1 text-[0.7rem] font-medium tracking-[0.18em] text-foreground uppercase">
+                    {d.region}
+                  </span>
                 </div>
-                <span className="absolute top-4 left-4 bg-background/90 px-2.5 py-1 text-[0.7rem] font-medium tracking-[0.18em] text-foreground uppercase">
-                  {d.region}
-                </span>
-              </div>
+              </ViewTransition>
               <div className="mt-5 flex items-start justify-between gap-4">
                 <div>
                   <h3 className="display-3">{d.title}</h3>

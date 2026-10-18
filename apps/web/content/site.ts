@@ -13,8 +13,8 @@ export const siteSettings: SiteSettings = {
     {
       network: "instagram",
       label: "Instagram",
-      handle: "@alexandraluxetravel19",
-      url: "https://instagram.com/alexandraluxetravel19",
+      handle: "@alexandraluxetravel",
+      url: "https://instagram.com/alexandraluxetravel",
     },
     {
       network: "facebook",

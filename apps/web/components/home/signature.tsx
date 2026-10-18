@@ -35,12 +35,13 @@ export function Signature({ signature }: { signature: HomePage["signature"] }) {
             </Reveal>
             <Caption media={main} />
           </figure>
-          <Drift amount={18} className="col-span-5 col-start-8 row-start-1 mt-[38%] self-start">
-            <figure>
-              <Reveal variant="image" delay={0.2} className="border-[6px] border-surface md:border-8">
+          <Drift amount={18} className="relative z-10 col-span-5 col-start-8 row-start-1 mt-[38%] self-start">
+            {/* The inset print overlaps the main photo, so its caption sits on the same sand mat as its border. */}
+            <figure className="bg-surface p-1.5 md:p-2">
+              <Reveal variant="image" delay={0.2}>
                 <Photo media={second} sizes="(min-width: 1024px) 20vw, 42vw" className="aspect-[3/4]" />
               </Reveal>
-              <Caption media={second} />
+              <Caption media={second} className="mt-0 px-1 pt-3 pb-1.5" />
             </figure>
           </Drift>
         </div>

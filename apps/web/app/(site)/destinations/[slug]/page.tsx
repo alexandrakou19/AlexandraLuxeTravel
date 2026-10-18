@@ -152,7 +152,7 @@ export default async function DestinationPage(props: PageProps<"/destinations/[s
             <ul className="mt-12 grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-[1.25fr_1fr_1fr]">
               {related.map((r, i) => (
                 <li key={r.slug} className={i === 1 ? "lg:mt-16" : undefined}>
-                  <DestinationCard destination={r} headingLevel="h3" aspect={i === 0 ? "aspect-[4/5]" : "aspect-[3/4]"} />
+                  <DestinationCard destination={r} headingLevel="h3" morph={false} aspect={i === 0 ? "aspect-[4/5]" : "aspect-[3/4]"} />
                 </li>
               ))}
             </ul>

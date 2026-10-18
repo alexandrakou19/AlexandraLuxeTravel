@@ -20,7 +20,7 @@ export function Photo({
   className?: string
   imgClassName?: string
   priority?: boolean
-  quality?: 70 | 80
+  quality?: 70 | 80 | 90
 }) {
   return (
     <div className={cn("relative overflow-hidden bg-surface", className)}>

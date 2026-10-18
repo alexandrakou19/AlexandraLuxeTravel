@@ -4,8 +4,8 @@ import type { NextConfig } from "next"
 const nextConfig: NextConfig = {
   images: {
     formats: ["image/avif", "image/webp"],
-    qualities: [70, 80],
-    deviceSizes: [420, 640, 828, 1080, 1280, 1600, 2048],
+    qualities: [70, 80, 90],
+    deviceSizes: [420, 640, 828, 1080, 1280, 1600, 2048, 2560],
     // Static brand files and CMS uploads (local in development, Vercel Blob in production).
     localPatterns: [{ pathname: "/images/**" }, { pathname: "/icon.png" }, { pathname: "/api/media/file/**" }],
     remotePatterns: [{ protocol: "https", hostname: "*.public.blob.vercel-storage.com" }],

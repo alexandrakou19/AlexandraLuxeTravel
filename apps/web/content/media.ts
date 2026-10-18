@@ -38,8 +38,8 @@ const meta: Record<PhotoId, Meta> = {
     focal: "50% 55%",
   },
   "canyon-family-hike": {
-    alt: "Alexandra hiking with her children above a red rock canyon in the American Southwest",
-    caption: "Red rock country — American Southwest",
+    alt: "Alexandra hiking with her children in Zion National Park, Utah",
+    caption: "Zion National Park, Utah",
     focal: "75% 55%",
   },
   "resort-pool-daughter": {
@@ -98,6 +98,7 @@ export function photo(id: PhotoId, overrides: Partial<Meta> = {}): Media {
 
 const brandAlt: Record<BrandId, string> = {
   "logo-full": "Alexandra Luxe Travel",
+  "logo-light": "Alexandra Luxe Travel",
   "logo-monogram": "Alexandra Luxe Travel monogram",
   "badge-sandals-elite": "Sandals Elite Advisor 2026",
   "badge-travelmation-luxury": "Travelmation Luxury Certified",

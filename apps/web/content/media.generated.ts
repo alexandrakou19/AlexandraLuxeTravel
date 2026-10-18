@@ -4,9 +4,9 @@ export const photoFiles = {
   "karnak-red-dress": {
     "id": "karnak-red-dress",
     "src": "/images/photos/karnak-red-dress.jpg",
-    "width": 1320,
-    "height": 1964,
-    "blur": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAQAAsDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAIF/8QAIRAAAgEDBAMBAAAAAAAAAAAAAQIDAAQhEyMxUUGRodH/xAAVAQEBAAAAAAAAAAAAAAAAAAADBP/EABgRAAMBAQAAAAAAAAAAAAAAAAABIQIR/9oADAMBAAIRAxEAPwDVtJUXWGCNE4bxwKNJeQ6h3R7olyJnaAxzoFdgrgdcnPWKuVmErby/PyheWUxXp//Z"
+    "width": 2640,
+    "height": 3928,
+    "blur": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAQAAsDASIAAhEBAxEB/8QAFgABAQEAAAAAAAAAAAAAAAAABAIF/8QAIRAAAgECBgMAAAAAAAAAAAAAAQIDADEEERMhI5FBYdH/xAAUAQEAAAAAAAAAAAAAAAAAAAAD/8QAFhEBAQEAAAAAAAAAAAAAAAAAAQAh/9oADAMBAAIRAxEAPwDVwcqLrjYjQOzeLCiyYyHUPKOzRpxK5hKToA7BWAztfraqlZxK3Ot/XyiRnw2//9k="
   },
   "london-portrait": {
     "id": "london-portrait",
@@ -114,6 +114,12 @@ export const brandFiles = {
     "src": "/images/brand/logo-full.png",
     "width": 1637,
     "height": 494
+  },
+  "logo-light": {
+    "id": "logo-light",
+    "src": "/images/brand/logo-light.png",
+    "width": 1230,
+    "height": 404
   },
   "logo-monogram": {
     "id": "logo-monogram",
