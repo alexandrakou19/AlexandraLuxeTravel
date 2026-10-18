@@ -45,6 +45,7 @@ const brand = {
   "logo-monogram": path.join(clientDir, "Logos/CA565AE1-0FA8-4EAD-AB14-72642B24EE0A.PNG"),
   "badge-sandals-elite": path.join(clientDir, "elite-advisor-blue.png"),
   "badge-travelmation-luxury": path.join(clientDir, "Luxury Badge.png"),
+  "badge-travelmation-weddings": path.join(clientDir, "Destination Weddings Badge.png"),
   "badge-travelmation": path.join(clientDir, "TM Main Logo - White Columbia.png"),
 }
 

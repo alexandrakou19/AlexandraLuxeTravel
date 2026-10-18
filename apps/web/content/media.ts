@@ -101,6 +101,7 @@ const brandAlt: Record<BrandId, string> = {
   "logo-monogram": "Alexandra Luxe Travel monogram",
   "badge-sandals-elite": "Sandals Elite Advisor 2026",
   "badge-travelmation-luxury": "Travelmation Luxury Certified",
+  "badge-travelmation-weddings": "Travelmation Destination Weddings Certified",
   "badge-travelmation": "Travelmation",
 }
 

@@ -86,7 +86,7 @@ async function seedMedia(payload: Payload) {
     })
     payload.logger.info(`media: ${id}`)
   }
-  for (const id of ["badge-sandals-elite", "badge-travelmation-luxury", "badge-travelmation"] as const) {
+  for (const id of ["badge-sandals-elite", "badge-travelmation-luxury", "badge-travelmation-weddings", "badge-travelmation"] as const) {
     await upload(id, path.join(publicDir, brandFiles[id].src), { alt: brand(id).alt })
   }
   return ids

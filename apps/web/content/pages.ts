@@ -157,7 +157,6 @@ export const servicesPage: ServicesPage = {
 export const inquiryPage: InquiryPage = {
   intro:
     "Tell me about the trip you are dreaming of. It takes about three minutes, and every answer helps me prepare a first draft that already feels like yours.",
-  // REVIEW(Saad): budget ranges to confirm with the client (brief section 11).
   budgetRanges: [
     "Under $5,000",
     "$5,000 – $10,000",

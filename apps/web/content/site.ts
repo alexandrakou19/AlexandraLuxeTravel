@@ -31,11 +31,13 @@ export const siteSettings: SiteSettings = {
     { id: "travelmation", name: "Affiliated with Travelmation", logo: brand("badge-travelmation") },
     { id: "travelmation-luxury", name: "Travelmation Luxury Certified", logo: brand("badge-travelmation-luxury") },
     { id: "sandals-elite", name: "Sandals Elite Advisor 2026", logo: brand("badge-sandals-elite") },
-    // REVIEW(Saad): client mentioned a destination wedding certification; exact name and logo not yet provided.
-    { id: "wedding", name: "Destination Wedding Certified" },
+    {
+      id: "travelmation-weddings",
+      name: "Travelmation Destination Weddings Certified",
+      logo: brand("badge-travelmation-weddings"),
+    },
   ],
   testimonialsEnabled: true,
-  // REVIEW(Saad): reply-time promise to confirm with the client (brief section 11).
   replyTimePromise: "within one business day",
   notificationEmail: "alexandrajohnson@travelmation.net",
   nav: [
@@ -49,7 +51,7 @@ export const siteSettings: SiteSettings = {
   defaultSeoImage: photo("karnak-red-dress"),
 }
 
-// Real reviews from the client folder only. ("Jordan" was listed without a quote and is omitted.)
+// Real reviews from the client folder only. ("Jordan" is omitted at the client's request.)
 export const testimonials: Testimonial[] = [
   {
     id: "jackie",

@@ -133,6 +133,12 @@ export const brandFiles = {
     "width": 363,
     "height": 355
   },
+  "badge-travelmation-weddings": {
+    "id": "badge-travelmation-weddings",
+    "src": "/images/brand/badge-travelmation-weddings.png",
+    "width": 1800,
+    "height": 1763
+  },
   "badge-travelmation": {
     "id": "badge-travelmation",
     "src": "/images/brand/badge-travelmation.png",
