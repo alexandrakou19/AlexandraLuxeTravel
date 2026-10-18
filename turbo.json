@@ -5,6 +5,16 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "env": [
+        "DATABASE_URI",
+        "PAYLOAD_SECRET",
+        "BLOB_READ_WRITE_TOKEN",
+        "RESEND_API_KEY",
+        "EMAIL_FROM",
+        "NEXT_PUBLIC_*",
+        "TURNSTILE_SECRET_KEY",
+        "ZAPIER_TRAVELJOY_HOOK_URL"
+      ],
       "outputs": [".next/**", "!.next/cache/**", "!.next/dev/**"]
     },
     "lint": {
