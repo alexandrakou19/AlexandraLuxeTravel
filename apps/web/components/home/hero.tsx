@@ -35,6 +35,15 @@ export function Hero({ hero }: { hero: HomePage["hero"] }) {
       aria-labelledby="hero-heading"
       className="relative isolate flex min-h-[100svh] items-end overflow-hidden bg-espresso text-ivory"
     >
+      <style>{`
+        @media (max-width: 767px) {
+          [data-hero-media] img {
+            object-position: 0% 0% !important;
+            transform: translateX(-30px) scale(1.16) !important;
+            transform-origin: top left;
+          }
+        }
+      `}</style>
       <div data-hero-media className="absolute inset-0 -z-10 will-change-transform">
         <Photo
           media={hero.image}
