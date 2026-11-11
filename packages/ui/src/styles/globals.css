@@ -14,9 +14,9 @@
 */
 
 @theme inline {
-  --font-sans: var(--font-jost);
-  --font-heading: var(--font-cormorant);
-  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-montserrat);
+  --font-heading: var(--font-playfair);
+  --font-serif: var(--font-playfair);
 
   /* Brand constants (theme-independent) */
   --color-ivory: #f7f3ee;
