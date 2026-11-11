@@ -29,7 +29,7 @@ const meta: Record<PhotoId, Meta> = {
   },
   "paris-family-eiffel": {
     alt: "Alexandra and her family standing by the Seine with the Eiffel Tower in the distance",
-    caption: "The Seine at golden hour, Paris",
+    caption: "Paris, France",
     focal: "50% 60%",
   },
   "taipei-101": {
