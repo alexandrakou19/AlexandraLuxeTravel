@@ -129,7 +129,7 @@ export default async function ServicesPage() {
       <ClosingCta
         heading="Let’s plan something extraordinary"
         body="Share your dates, dream destinations and budget, and I’ll prepare a first draft that already feels like yours."
-        image={photo("canyon-family-hike")}
+        image={photo("karnak-family")}
         location="services-closing"
       />
     </>
