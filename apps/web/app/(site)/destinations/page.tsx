@@ -27,8 +27,7 @@ export default async function DestinationsPage() {
         }
       >
         <p>
-          A few of the places I love sending travelers. Every itinerary is tailored to you, so treat these as a
-          beginning, not a package.
+          A little inspiration for your next journey. Every itinerary is designed around you.
         </p>
       </PageHero>
       <DestinationExplorer destinations={destinations} filters={experienceFilters} />
