@@ -15,6 +15,13 @@ export const photoFiles = {
     "height": 2400,
     "blur": "data:image/jpeg;base64,/9j/2wBDABALDA4MChAODQ4SERATGCgaGBYWGDEjJR0oOjM9PDkzODdASFxOQERXRTc4UG1RV19iZ2hnPk1xeXBkeFxlZ2P/2wBDARESEhgVGC8aGi9jQjhCY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2NjY2P/wAARCAAQAAwDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAwT/xAAiEAABAwQBBQEAAAAAAAAAAAABAgQRAAMSIQUTFEFRYXL/xAAUAQEAAAAAAAAAAAAAAAAAAAAC/8QAGBEAAwEBAAAAAAAAAAAAAAAAAAECESH/2gAMAwEAAhEDEQA/ALUuw1et26lnHAgmdE/T71TNw6zvqu3xC7pVbhY0iBFByHCWXiwrqqRAAiJndW9unzBP5o4x055h/9k="
   },
+  "mykonos-portrait": {
+    "id": "mykonos-portrait",
+    "src": "/images/photos/mykonos-portrait.jpg",
+    "width": 2048,
+    "height": 2560,
+    "blur": "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARkVQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wAARCAAKAAgDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwBsl7NFBLcb1ZVHCg5yc0VoEAswIBGMUVcU1fUUmnbQ/9k="
+  },
   "paris-family-seine": {
     "id": "paris-family-seine",
     "src": "/images/photos/paris-family-seine.jpg",
@@ -112,20 +119,20 @@ export const brandFiles = {
   "logo-full": {
     "id": "logo-full",
     "src": "/images/brand/logo-full.png",
-    "width": 1637,
-    "height": 494
+    "width": 1900,
+    "height": 660
   },
   "logo-light": {
     "id": "logo-light",
     "src": "/images/brand/logo-light.png",
-    "width": 1230,
-    "height": 404
+    "width": 1900,
+    "height": 660
   },
   "logo-monogram": {
     "id": "logo-monogram",
     "src": "/images/brand/logo-monogram.png",
-    "width": 1116,
-    "height": 616
+    "width": 1000,
+    "height": 1000
   },
   "badge-sandals-elite": {
     "id": "badge-sandals-elite",

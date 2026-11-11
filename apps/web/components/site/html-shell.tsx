@@ -3,7 +3,7 @@ import type { ReactNode } from "react"
 
 import "@workspace/ui/globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import { cormorant, jost } from "@/lib/fonts"
+import { montserrat, playfair } from "@/lib/fonts"
 import { cn } from "@workspace/ui/lib/utils"
 
 const gaId = process.env.NEXT_PUBLIC_GA_ID
@@ -11,7 +11,7 @@ const gaId = process.env.NEXT_PUBLIC_GA_ID
 /** <html>/<body> for the public site (its own root layout, separate from the CMS admin). */
 export function HtmlShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={cn("antialiased", cormorant.variable, jost.variable)}>
+    <html lang="en" suppressHydrationWarning className={cn("antialiased", playfair.variable, montserrat.variable)}>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
         {gaId ? (

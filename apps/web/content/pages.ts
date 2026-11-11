@@ -45,7 +45,7 @@ export const homePage: HomePage = {
       "Luxury family travel is my signature, and every couple, honeymooner and curious traveler is warmly welcome.",
   },
   meet: {
-    portrait: photo("london-portrait"),
+    portrait: photo("mykonos-portrait"),
     secondary: photo("paris-family-seine"),
     heading: "Hello, I’m Alexandra.",
     body: [

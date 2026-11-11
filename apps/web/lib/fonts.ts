@@ -1,16 +1,16 @@
-import { Cormorant_Garamond, Jost } from "next/font/google"
+import { Montserrat, Playfair_Display } from "next/font/google"
 
-export const cormorant = Cormorant_Garamond({
+export const playfair = Playfair_Display({
   subsets: ["latin"],
-  // Variable font: one file per style covers weights 500 and 600.
+  // Variable font: one file per style covers weights 400 through 700.
   style: ["normal", "italic"],
-  variable: "--font-cormorant",
+  variable: "--font-playfair",
   display: "swap",
 })
 
-export const jost = Jost({
+export const montserrat = Montserrat({
   subsets: ["latin"],
   // Variable font: a single file covers 300, 400 and 500.
-  variable: "--font-jost",
+  variable: "--font-montserrat",
   display: "swap",
 })
