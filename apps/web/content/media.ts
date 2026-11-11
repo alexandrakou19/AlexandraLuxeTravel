@@ -17,6 +17,11 @@ const meta: Record<PhotoId, Meta> = {
     caption: "London, England",
     focal: "55% 40%",
   },
+  "mykonos-portrait": {
+    alt: "Alexandra at a waterfront table at golden hour with the whitewashed houses of Mykonos behind her",
+    caption: "Mykonos, Greece",
+    focal: "56% 30%",
+  },
   "paris-family-seine": {
     alt: "Alexandra and her family on a bridge over the Seine with the Eiffel Tower behind them",
     caption: "Along the Seine, Paris",
