@@ -112,14 +112,14 @@ export const brandFiles = {
   "logo-full": {
     "id": "logo-full",
     "src": "/images/brand/logo-full.png",
-    "width": 1637,
-    "height": 494
+    "width": 1900,
+    "height": 660
   },
   "logo-light": {
     "id": "logo-light",
     "src": "/images/brand/logo-light.png",
-    "width": 1230,
-    "height": 404
+    "width": 1900,
+    "height": 660
   },
   "logo-monogram": {
     "id": "logo-monogram",
