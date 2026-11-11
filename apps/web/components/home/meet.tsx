@@ -3,7 +3,6 @@ import Link from "next/link"
 
 import { Caption, Photo } from "@/components/editorial/photo"
 import { CountUp } from "@/components/motion/count-up"
-import { Drift } from "@/components/motion/parallax"
 import { Reveal } from "@/components/motion/reveal"
 import type { HomePage } from "@/content/types"
 
@@ -12,17 +11,12 @@ export function Meet({ meet, stats }: { meet: HomePage["meet"]; stats: HomePage[
     <section aria-labelledby="meet-heading" className="section-pad overflow-x-clip">
       <div className="container-editorial grid items-center gap-16 lg:grid-cols-12 lg:gap-10">
         <div className="relative lg:col-span-6 lg:col-start-1">
-          <figure className="relative w-[82%] md:w-[70%] lg:w-[78%]">
+          <figure className="relative">
             <Reveal variant="image">
-              <Photo media={meet.portrait} sizes="(min-width: 1024px) 38vw, 80vw" className="aspect-[4/5]" />
+              <Photo media={meet.portrait} sizes="(min-width: 1024px) 46vw, 100vw" className="aspect-[4/5]" />
             </Reveal>
             <Caption media={meet.portrait} />
           </figure>
-          <Drift amount={14} className="absolute right-0 -bottom-10 w-[46%] md:w-[38%] lg:-right-4 lg:w-[44%]">
-            <Reveal variant="image" delay={0.25} className="border-[6px] border-background md:border-8">
-              <Photo media={meet.secondary} sizes="(min-width: 1024px) 20vw, 45vw" className="aspect-[3/4]" />
-            </Reveal>
-          </Drift>
         </div>
 
         <div className="lg:col-span-5 lg:col-start-8">
