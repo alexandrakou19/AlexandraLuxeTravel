@@ -1,11 +1,10 @@
 import { Caption, Photo } from "@/components/editorial/photo"
-import { Drift } from "@/components/motion/parallax"
 import { Reveal } from "@/components/motion/reveal"
 import { InquireLink } from "@/components/site/inquire-link"
 import type { HomePage } from "@/content/types"
 
 export function Signature({ signature }: { signature: HomePage["signature"] }) {
-  const [main, second] = signature.images
+  const [main] = signature.images
   return (
     <section aria-labelledby="signature-heading" className="section-pad relative overflow-x-clip bg-surface">
       <div className="container-editorial grid gap-16 lg:grid-cols-12 lg:items-center lg:gap-10">
@@ -28,22 +27,13 @@ export function Signature({ signature }: { signature: HomePage["signature"] }) {
           </Reveal>
         </div>
 
-        <div className="relative grid grid-cols-12 lg:col-span-6 lg:col-start-7">
-          <figure className="col-span-9 col-start-1 row-start-1">
+        <div className="relative lg:col-span-6 lg:col-start-7">
+          <figure>
             <Reveal variant="image">
-              <Photo media={main} sizes="(min-width: 1024px) 36vw, 75vw" className="aspect-[4/5]" />
+              <Photo media={main} sizes="(min-width: 1024px) 46vw, 100vw" className="aspect-[4/5]" />
             </Reveal>
             <Caption media={main} />
           </figure>
-          <Drift amount={18} className="relative z-10 col-span-5 col-start-8 row-start-1 mt-[38%] self-start">
-            {/* The inset print overlaps the main photo, so its caption sits on the same sand mat as its border. */}
-            <figure className="bg-surface p-1.5 md:p-2">
-              <Reveal variant="image" delay={0.2}>
-                <Photo media={second} sizes="(min-width: 1024px) 20vw, 42vw" className="aspect-[3/4]" />
-              </Reveal>
-              <Caption media={second} className="mt-0 px-1 pt-3 pb-1.5" />
-            </figure>
-          </Drift>
         </div>
       </div>
     </section>
