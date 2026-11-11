@@ -47,6 +47,11 @@ const meta: Record<PhotoId, Meta> = {
     caption: "Zion National Park, Utah",
     focal: "75% 55%",
   },
+  "karnak-family": {
+    alt: "Alexandra with her husband and daughter between the towering columns of Karnak Temple",
+    caption: "",
+    focal: "50% 45%",
+  },
   "resort-pool-daughter": {
     alt: "A little traveler in a floral swimsuit on a palm-lined resort pool deck",
     caption: "Poolside, family resort",
