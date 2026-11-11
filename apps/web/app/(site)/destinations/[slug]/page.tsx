@@ -134,7 +134,7 @@ export default async function DestinationPage(props: PageProps<"/destinations/[s
       <section className="bg-band text-band-foreground">
         <div className="container-editorial flex flex-col gap-8 py-20 md:flex-row md:items-end md:justify-between lg:py-24">
           <Reveal as="h2" variant="lines" className="display-2 max-w-[16ch]">
-            {`Your ${d.title}, planned around you`}
+            {d.slug === "caribbean" ? "The Caribbean & Mexico, planned around you" : d.slug === "luxury-road-trips" ? "Your road trip, planned around you." : `Your ${d.title}, planned around you`}
           </Reveal>
           <InquireLink href={planHref} location={`destination-${d.slug}-band`} variant="inverse" size="lg">
             Plan a trip to {d.title}
