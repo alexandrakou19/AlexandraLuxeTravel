@@ -76,7 +76,7 @@ export default async function ServicesPage() {
 
                 <div className={cn("lg:col-span-5", flip ? "lg:col-start-1 lg:row-start-1" : "lg:col-start-8")}>
                   {i === 0 ? <p className="eyebrow">The signature</p> : null}
-                  <Reveal as="h2" variant="lines" id={`${s.anchor}-title`} className={cn("display-2", i === 0 && "mt-5")}>
+                  <Reveal as="h2" variant="lines" id={`${s.anchor}-title`} className={cn("display-2", i === 0 && "mt-5", s.anchor === "groups" && "!text-[clamp(1.75rem,3.6vw,3.25rem)]")}>
                     {s.title}
                   </Reveal>
                   <Reveal variant="stagger" className="mt-7 space-y-4">
