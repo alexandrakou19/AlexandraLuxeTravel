@@ -124,8 +124,8 @@ export const brandFiles = {
   "logo-monogram": {
     "id": "logo-monogram",
     "src": "/images/brand/logo-monogram.png",
-    "width": 1116,
-    "height": 616
+    "width": 1000,
+    "height": 1000
   },
   "badge-sandals-elite": {
     "id": "badge-sandals-elite",
