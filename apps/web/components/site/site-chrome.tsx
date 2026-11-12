@@ -5,6 +5,7 @@ import { SmoothScroll } from "@/components/motion/smooth-scroll"
 import { getSiteSettings } from "@/lib/content"
 import { absoluteUrl } from "@/lib/utils"
 
+import { CookieNotice } from "./cookie-notice"
 import { JsonLd } from "./json-ld"
 import { LivePreview } from "./live-preview"
 import { RouteProgress } from "./route-progress"
@@ -29,6 +30,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
         {children}
       </main>
       <SiteFooter site={site} />
+      <CookieNotice />
       <JsonLd
         data={{
           "@context": "https://schema.org",
